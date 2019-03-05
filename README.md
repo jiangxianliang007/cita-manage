@@ -55,4 +55,4 @@ python3 CITA_Manage_Tool.py
 6 quit
 ```
 # 录屏
- ![https://github.com/jiangxianliang007/cita-manage/blob/master/Deploy_CITA.mp4]
+ ![https://cdn.cryptape.com/cita-deploy.gif]
