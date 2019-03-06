@@ -16,7 +16,7 @@ apt-get install python3 python-dev python3-dev \
      python3-pip
 pip3 install paramiko
 pip3 install cryptography==2.4.2
-apt-get docker.io
+apt-get install docker.io
 
 如果是非root账号需要将当前用户加入到docker组，需要sudo权限
 sudo gpasswd -a ${USER} docker  #执行后重新登录终端
@@ -37,7 +37,7 @@ sudo gpasswd -a ${USER} docker  #执行后重新登录终端
 # 节点环境依赖
 ```
 apt-get update
-apt-get docker.io
+apt-get install docker.io
 
 如果是非root账号需要将当前用户加入到docker组，需要sudo权限
 sudo gpasswd -a ${USER} docker  #执行后重新登录终端
