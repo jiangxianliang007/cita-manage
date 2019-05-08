@@ -45,7 +45,7 @@ sudo gpasswd -a ${USER} docker  #执行后重新登录终端
 
 # 使用,输入对应的ID即可
 ```
-python3 CITA_Manage_Tool.py 
+python3 cita_manage_tool.py 
 
 1 deploy_cita
 2 check_blockNumber
