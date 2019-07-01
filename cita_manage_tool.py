@@ -48,7 +48,7 @@ def stop_cita():
     for ip in iplist:
         cmd = ([
             ('cd %s;cd cita_secp256k1_sha3/;'
-             './env.sh ./bin/cita stop test-chain/%d' % (remotedir, cita_node))
+             './bin/cita stop test-chain/%d' % (remotedir, cita_node))
         ])
         cita_node = cita_node + 1
         stop_cita_thread = threading.Thread(target=connect_cita_server,
@@ -62,7 +62,7 @@ def start_cita():
     cita_node = 0
     for ip in iplist:
         cmd = ([('cd %s;cd cita_secp256k1_sha3/;'
-                 './daemon.sh ./bin/cita start test-chain/%d' %
+                 './bin/cita start test-chain/%d' %
                  (remotedir, cita_node))])
         cita_node = cita_node + 1
         start_cita_thread = threading.Thread(target=connect_cita_server,
@@ -101,16 +101,16 @@ def init_cita(nodes, filename):
     if docker_process_ct == 0:
         subprocess.call(['service docker start'], shell=True)
 
-    docker_run_cita = os.popen('docker ps -a -q -f name=cita_run |wc -l')
+    docker_run_cita = os.popen('docker ps -a -q -f name=cita_run_container |wc -l')
     docker_run_cita_ct = (docker_run_cita.read())
     docker_run_cita_ct = int(docker_run_cita_ct)
 
     if docker_run_cita_ct >= 1:
-        os.system('docker rm -f $(docker ps -a -q -f name=cita_run)')
+        os.system('docker rm -f $(docker ps -a -q -f name=cita_run_container)')
     pwd = os.getcwd()
     os.chdir(file)
     os.system((
-        './env.sh ./scripts/create_cita_config.py create --super_admin "0x4b5ae4567ad5d9fb92bc9afd6a657e6fa13a2523" --nodes %s'
+        'bin/cita create --super_admin "0x4b5ae4567ad5d9fb92bc9afd6a657e6fa13a2523" --nodes %s'
     ) % nodes)
     os.chdir(pwd)
     os.system(('tar czf cita_secp256k1_sha3_deploy.tar.gz %s') % file)
@@ -220,11 +220,11 @@ def execut():
 
     for ip in iplist:
         cmd = ([(
-            'cd %s;docker rm -f $(docker ps -a -q -f name=cita_run);'
+            'cd %s;docker rm -f $(docker ps -a -q -f name=cita_run_container);'
             'mv cita_secp256k1_sha3 cita_secp256k1_sha3_%s ;'
             'tar zxf cita_secp256k1_sha3_deploy.tar.gz;cd cita_secp256k1_sha3/;'
-            './env.sh ./bin/cita setup test-chain/%d;'
-            './daemon.sh ./bin/cita start test-chain/%d' %
+            './bin/cita setup test-chain/%d;'
+            './bin/cita start test-chain/%d' %
             (remotedir, baktime, cita_node, cita_node))])
         cita_node = cita_node + 1
         connect_thread = threading.Thread(target=connect_cita_server,
